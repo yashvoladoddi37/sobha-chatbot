@@ -10,7 +10,7 @@ SOBHA_KNOWLEDGE = {
     "floors": {
         "regular_floors": {
             "floor_range": "1-36",
-            "units_per_floor": None,  # Add actual number
+            "units_per_floor": 5,  # Add actual number
             "typical_layout": None,    # Add description
         },
         "top_floor": {
@@ -18,8 +18,8 @@ SOBHA_KNOWLEDGE = {
             "levels": {
                 "lower_level": {
                     "amenities": [
-                        {"name": "Table Tennis Court", "details": "Professional grade TT facility"},
-                        {"name": "Snooker Table", "details": "Tournament-grade snooker table"},
+                        {"name": "Table Tennis Court", "details": "Professional grade TT facility, have to get own rackets and balls though"},
+                        {"name": "Snooker Table", "details": "Tournament-grade snooker table, have to get own cue sticks though"},
                         {"name": "Sauna", "details": "Modern sauna facility"},
                         {"name": "Spa", "details": "Full-service spa facility"}
                     ]
@@ -60,7 +60,9 @@ SOBHA_KNOWLEDGE = {
 
     "rules_and_regulations": {
         "pool_timings": "6 AM to 10 PM",
+        "pool_availability": "Monday to Friday only, entry available only for residents",
         "gym_timings": "5 AM to 10 PM",
+        "gym_availability": "Everyday from 5am to 11pm, Sunday till 5pm only. Entry available only for residents",
         "quiet_hours": "10 PM to 6 AM",
         "visitor_parking": "Available at B1 level",
         "guest_policy": "Visitors must register at security"
@@ -71,7 +73,8 @@ SOBHA_KNOWLEDGE = {
         "maintenance": "+91-XXXXXXXXXX",
         "property_manager": "+91-XXXXXXXXXX",
         "ambulance": "108",
-        "fire": "101"
+        "fire": "101",
+        "nearest_hospital": "Suguna Hospital, 700m from the property. Here's the number: +91-XXXXXXXXXX"
     },
 
     "maintenance": {
