@@ -1,0 +1,10 @@
+streamlit
+openai
+langchain
+pydantic
+chromadb
+python-dotenv
+gtts  # for text-to-speech
+SpeechRecognition  # for speech-to-voice
+pillow  # for image handling
+pypdf  # for PDF document processing 
