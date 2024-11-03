@@ -4,7 +4,7 @@ from openai import OpenAI
 import logging
 from config import Config
 from message_handler import MessageHandler, Message
-from voice_handler import VoiceHandler
+# from voice_handler import VoiceHandler
 # from langchain_chroma import Chroma # type: ignore
 from langchain_openai import OpenAIEmbeddings # type: ignore
 import base64
@@ -22,7 +22,7 @@ class ChatApp:
         self.client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
         self.embeddings = OpenAIEmbeddings(openai_api_key=st.secrets["OPENAI_API_KEY"])
         self.message_handler = MessageHandler()
-        self.voice_handler = VoiceHandler()
+        # self.voice_handler = VoiceHandler()
         self.initialize_vectorstore()
         self.initialize_session_state()
 
