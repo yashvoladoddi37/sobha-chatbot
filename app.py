@@ -51,7 +51,7 @@ class ChatApp:
     def initialize_session_state():
         if "messages" not in st.session_state:
             st.session_state.messages = []
-        st.session_state.enable_voice = True  # Set default value without UI control
+        # st.session_state.enable_voice = True  # Set default value without UI control
 
     def get_relevant_context(self, query: str) -> str:
         if not self.vectorstore:
@@ -67,13 +67,13 @@ class ChatApp:
     def process_response(self, response_text: str) -> Dict:
         message_data = {"role": "assistant", "content": response_text}
         
-        if st.session_state.enable_voice:
-            try:
-                audio_file = self.voice_handler.text_to_speech(response_text)
-                message_data["audio"] = audio_file
-            except Exception as e:
-                logger.error(f"Text-to-speech failed: {e}")
-                st.warning("Voice response generation failed")
+        # if st.session_state.enable_voice:
+        #     try:
+        #         audio_file = self.voice_handler.text_to_speech(response_text)
+        #         message_data["audio"] = audio_file
+        #     except Exception as e:
+        #         logger.error(f"Text-to-speech failed: {e}")
+        #         st.warning("Voice response generation failed")
 
         return message_data
 
@@ -169,18 +169,18 @@ class ChatApp:
                 logger.error(f"Error processing message: {e}")
                 st.error("Sorry, I encountered an error processing your request.")
 
-    def handle_voice_input(self):
-        try:
-            audio_file = self.voice_handler.record_audio()
-            if audio_file:
-                text = self.voice_handler.speech_to_text(audio_file)
-                if text:
-                    self.handle_user_input(text)
-                else:
-                    st.warning("Could not understand the audio. Please try again.")
-        except Exception as e:
-            logger.error(f"Error processing voice input: {e}")
-            st.error("Error processing voice input. Please try again.")
+    # def handle_voice_input(self):
+    #     try:
+    #         audio_file = self.voice_handler.record_audio()
+    #         if audio_file:
+    #             text = self.voice_handler.speech_to_text(audio_file)
+    #             if text:
+    #                 self.handle_user_input(text)
+    #             else:
+    #                 st.warning("Could not understand the audio. Please try again.")
+    #     except Exception as e:
+    #         logger.error(f"Error processing voice input: {e}")
+    #         st.error("Error processing voice input. Please try again.")
 
     def run(self):
         with st.sidebar:
@@ -190,7 +190,7 @@ class ChatApp:
         self.render_chat_interface()
 
         # Cleanup temporary files at the end of the session
-        self.voice_handler.cleanup()
+        # self.voice_handler.cleanup()
 
 if __name__ == "__main__":
     app = ChatApp()
