@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .DS_Store
 chroma_db/ 
+.streamlit/
+secrets_sobha.py
