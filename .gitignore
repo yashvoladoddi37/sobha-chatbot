@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 .DS_Store
-chroma_db/ 
-.streamlit/
-secrets_sobha.py
+chroma_db/
+documents/
+.streamlit/secrets.toml
+secrets.toml
+*.toml
