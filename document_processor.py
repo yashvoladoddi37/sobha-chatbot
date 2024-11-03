@@ -34,11 +34,24 @@ def process_documents(directory_path: str):
             model_name="text-embedding-ada-002"
         )
         
-        # Get or create collection with the embedding function
-        collection = client.get_or_create_collection(
-            name="sobha_docs",
-            embedding_function=openai_ef
-        )
+        # Get or create collection
+        try:
+            collection = client.get_collection(
+                name="sobha_docs",
+                embedding_function=openai_ef
+            )
+            print("Using existing collection")
+        except:
+            collection = client.create_collection(
+                name="sobha_docs",
+                embedding_function=openai_ef
+            )
+            print("Created new collection")
+        
+        # Get existing document IDs
+        existing_ids = set()
+        if collection.count() > 0:
+            existing_ids = set(collection.get()['ids'])
         
         # Initialize text splitter
         text_splitter = RecursiveCharacterTextSplitter(
@@ -49,14 +62,21 @@ def process_documents(directory_path: str):
         # Process each document
         total_chunks = 0
         for file_path in document_paths:
-            print(f"Processing: {file_path}")
+            file_name = os.path.basename(file_path)
+            print(f"Processing: {file_name}")
+            
+            # Skip if all chunks from this file already exist
+            if any(f"doc_{file_name}_" in id for id in existing_ids):
+                print(f"Skipping {file_name} - already processed")
+                continue
+                
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     text = file.read()
                     chunks = text_splitter.split_text(text)
                     
                     # Generate IDs for chunks
-                    ids = [f"doc_{os.path.basename(file_path)}_{i}" for i in range(len(chunks))]
+                    ids = [f"doc_{file_name}_{i}" for i in range(len(chunks))]
                     
                     # Add documents to collection
                     collection.add(
@@ -66,15 +86,16 @@ def process_documents(directory_path: str):
                     )
                     
                     total_chunks += len(chunks)
-                    print(f"Added {len(chunks)} chunks from {os.path.basename(file_path)}")
+                    print(f"Added {len(chunks)} chunks from {file_name}")
                     
             except Exception as e:
                 print(f"Error processing file {file_path}: {e}")
                 continue
         
         print(f"\nProcessing complete!")
-        print(f"Total documents processed: {len(document_paths)}")
-        print(f"Total chunks in collection: {total_chunks}")
+        print(f"Total new documents processed: {len(document_paths)}")
+        print(f"Total new chunks added: {total_chunks}")
+        print(f"Total chunks in collection: {collection.count()}")
         
     except Exception as e:
         print(f"Error processing documents: {e}")
