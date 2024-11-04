@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Config:
-    OPENAI_MODEL = "gpt-4"
+    OPENAI_MODEL = "gpt-4o-mini"
     MAX_TOKENS = 500
     TEMPERATURE = 0.8
     MAX_MESSAGES = 50
